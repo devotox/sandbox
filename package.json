@@ -1,0 +1,42 @@
+{
+  "name": "sandbox",
+  "version": "1.0.0",
+  "description": "Sandbox",
+  "main": "index.js",
+  "scripts": {
+	"test": "gulp test",
+	"serve": "gulp serve",
+	"build": "gulp compile"
+  },
+  "keywords": [
+	"Qubit",
+	"Test"
+  ],
+  "author": "Devonte",
+  "license": "MIT",
+  "devDependencies": {
+	"babel-core": "^6.10.4",
+	"babel-loader": "^6.2.4",
+	"babel-plugin-transform-runtime": "^6.9.0",
+	"babel-preset-es2015": "^6.9.0",
+	"babelify": "^7.3.0",
+	"browser-sync": "^2.13.0",
+	"del": "^2.2.1",
+	"gulp": "^3.9.1",
+	"gulp-babel": "^6.1.2",
+	"gulp-concat": "^2.6.0",
+	"gulp-declare": "^0.3.0",
+	"gulp-handlebars": "^4.0.0",
+	"gulp-load-plugins": "^1.2.4",
+	"gulp-plumber": "^1.1.0",
+	"gulp-sass": "^2.3.2",
+	"gulp-sourcemaps": "^1.6.0",
+	"gulp-wrap": "^0.13.0",
+	"handlebars": "^4.0.5",
+	"run-sequence": "^1.2.2",
+	"vinyl-source-stream": "^1.1.0",
+	"webpack": "^1.13.1",
+	"webpack-dev-server": "^1.14.1",
+	"webpack-stream": "^3.2.0"
+  }
+}
