@@ -103,6 +103,7 @@ gulp.task('clean', () => {
 });
 
 gulp.task('watch', () =>  {
+	gulp.start('api-watch');
 	gulp.watch(`${source}/js/**/*.js`, ['js-watch']);
 	gulp.watch(`${source}/**/*.html`, ['html-watch']);
 	gulp.watch(`${source}/styles/**/*.scss`, ['css-watch']);
@@ -120,8 +121,17 @@ gulp.task('html-watch', ['html'], browserSync.reload);
 
 gulp.task('vendor-watch', ['vendor'], browserSync.reload);
 
+gulp.task('api-watch', $.shell.task([
+	`cd ${source}/api && node server.js`
+]));
+
+gulp.task('start-api', $.shell.task([
+	'node server.js'
+]));
 
 gulp.task('default', ['serve']);
+
+gulp.task('start', ['compile', 'start-api']);
 
 gulp.task('compile', ['js', 'hbs', 'css', 'html', 'vendor']);
 
