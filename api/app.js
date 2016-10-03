@@ -7,6 +7,7 @@ let pmx 					= require('pmx').init({ http : true });
 
 let fs						= require('fs');
 let path					= require('path');
+let http					= require('http');
 let https					= require('https');
 let Promise					= require('bluebird');
 
@@ -15,6 +16,7 @@ let express					= require('express');
 let compression				= require('compression');
 let bodyParser				= require('body-parser');
 let methodOverride			= require('method-override');
+let forceSSL 				= require('express-force-ssl');
 
 // Configure PG (allow named parameters in stored procedures)
 require('pg-spice').patch(require('pg'));
@@ -33,6 +35,7 @@ Promise.config({
 let configuration = {
 	version: '1',
 	host: 'localhost',
+	insecure_port: 8081,
 	node_port: parseInt( process.env.NODE_PORT ) || 3000
 };
 
@@ -74,6 +77,12 @@ app.use(methodOverride('X-HTTP-Method', ['POST', 'PUT']));          // Microsoft
 app.use(methodOverride('X-Method-Override', ['POST', 'PUT']));      // IBM
 app.use(methodOverride('X-HTTP-Method-Override', ['POST', 'PUT'])); // Google / GData / Salesforce
 
+// Force SSL
+app.use(forceSSL);
+app.set('forceSSLOptions', {
+	httpsPort: configuration.node_port
+});
+
 // Protect against known vulnerabilities
 app.use(helmet());
 app.use(helmet.noCache());
@@ -88,7 +97,10 @@ app.use(pmx.expressErrorHandler());
 // start the app on port 3000!
 require('./router')(app);
 module.exports.server = https.createServer(credentials, app);
+http.createServer(app).listen(configuration.insecure_port);
 module.exports.server.listen( configuration.node_port );
+
+console.info(`API LISTENING ON SECURE PORT ${configuration.node_port}`);
 
 // handle errors
 process.on('uncaughtException', (error) => {
