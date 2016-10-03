@@ -95,7 +95,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(pmx.expressErrorHandler());
 
 // start the app on port 3000!
-require('./router')(app);
+require('./router')(app); // Set all routes in router.js file
 module.exports.server = https.createServer(credentials, app);
 http.createServer(app).listen(configuration.insecure_port);
 module.exports.server.listen( configuration.node_port );
