@@ -37,12 +37,12 @@ let configuration = {
 };
 
 let certificates = {
-	private_key_path: path.join(__dirname, '../../sslcert/server.key'),
-	certificate_path: path.join(__dirname, '../../sslcert/server.crt'),
+	private_key_path: path.join(__dirname, '../sslcert/server.key'),
+	certificate_path: path.join(__dirname, '../sslcert/server.crt'),
 
-	ca1_path: path.join(__dirname, '../../sslcert/bundle_1.crt'),
-	ca2_path: path.join(__dirname, '../../sslcert/bundle_2.crt'),
-	ca3_path: path.join(__dirname, '../../sslcert/bundle_3.crt')
+	ca1_path: path.join(__dirname, '../sslcert/bundle_1.crt'),
+	ca2_path: path.join(__dirname, '../sslcert/bundle_2.crt'),
+	ca3_path: path.join(__dirname, '../sslcert/bundle_3.crt')
 };
 
 // configure the SSL certificates

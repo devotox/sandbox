@@ -123,7 +123,7 @@ gulp.task('html-watch', ['html'], browserSync.reload);
 gulp.task('vendor-watch', ['vendor'], browserSync.reload);
 
 gulp.task('api-watch', $.shell.task([
-	`cd ${source}/api && node server.js`
+	`cd api && node server.js`
 ]));
 
 gulp.task('start-api', $.shell.task([
