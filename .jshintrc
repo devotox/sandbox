@@ -1,5 +1,14 @@
 {
 	"predef": [
+		"it",
+		"global",
+		"module",
+		"process",
+		"require",
+		"exports",
+		"-Promise",
+		"describe",
+		"__dirname",
 		"-Promise",
 		"document",
 		"window",

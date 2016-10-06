@@ -2,6 +2,7 @@
 	"predef": [
 		"it",
 		"global",
+		"module",
 		"process",
 		"require",
 		"exports",
