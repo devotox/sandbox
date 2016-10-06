@@ -38,6 +38,10 @@ gulp.task('js', () => {
 		.pipe(webpack({
 			module: {
 				entry: [`${source}/js/index.js`],
+				preLoaders: [{
+					test: /\.json$/,
+					loader: 'json-loader',
+				}],
 				loaders: [{
 					test: /.jsx?$/,
 					loader: 'babel-loader',
