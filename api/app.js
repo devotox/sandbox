@@ -6,6 +6,7 @@
 let pmx 					= require('pmx').init({ http : true });
 
 let fs						= require('fs');
+let cors					= require('cors');
 let path					= require('path');
 let http					= require('http');
 let https					= require('https');
@@ -78,6 +79,7 @@ app.use(methodOverride('X-Method-Override', ['POST', 'PUT']));      // IBM
 app.use(methodOverride('X-HTTP-Method-Override', ['POST', 'PUT'])); // Google / GData / Salesforce
 
 // Force SSL
+app.use(cors());
 app.use(forceSSL);
 app.set('forceSSLOptions', {
 	httpsPort: configuration.node_port
@@ -89,8 +91,8 @@ app.use(helmet.noCache());
 
 app.use(compression());
 app.use(express.query());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 
 app.use(pmx.expressErrorHandler());
 

@@ -10,11 +10,13 @@ const del = require('del');
 
 const gulp = require('gulp');
 
-var webpack = require('webpack-stream');
+const webpack = require('webpack-stream');
 
-let runSequence = require('run-sequence');
+const runSequence = require('run-sequence');
 
 const browserSync = require('browser-sync').create();
+
+const webpackConfig = require('./webpack.config')(source);
 
 const $ = require('gulp-load-plugins')({
 	camelize: true
@@ -35,27 +37,7 @@ gulp.task('js', () => {
 	return gulp.src(`${source}/js/**/*.js`)
 		.pipe($.plumber())
 		.pipe($.sourcemaps.init())
-		.pipe(webpack({
-			module: {
-				entry: [`${source}/js/index.js`],
-				preLoaders: [{
-					test: /\.json$/,
-					loader: 'json-loader',
-				}],
-				loaders: [{
-					test: /.jsx?$/,
-					loader: 'babel-loader',
-					exclude: /node_modules/,
-					query: {
-						presets: ['es2015'],
-						plugins: ['transform-runtime']
-					}
-				}]
-			},
-			output: {
-			   filename: '[name].js'
-			}
-		}))
+		.pipe(webpack(webpackConfig))
 		.pipe($.concat('app.js'))
 		.pipe($.sourcemaps.write('.'))
 		.pipe(gulp.dest(`${destination}/js`))

@@ -20,11 +20,15 @@
 	"bcrypt": "0.8.7",
 	"bluebird": "3.4.6",
 	"body-parser": "1.15.2",
+	"cheerio": "0.22.0",
 	"compression": "1.6.2",
+	"cors": "2.8.1",
+	"d3": "4.2.6",
 	"express": "4.14.0",
 	"express-force-ssl": "0.3.2",
 	"forever-monitor": "1.7.0",
 	"helmet": "2.3.0",
+	"jquery": "3.1.1",
 	"lodash": "4.16.3",
 	"method-override": "2.3.6",
 	"model-base": "1.0.7",
@@ -32,7 +36,8 @@
 	"moment-timezone": "0.5.5",
 	"pg": "6.1.0",
 	"pg-spice": "2.0.1",
-	"pmx": "0.6.8"
+	"pmx": "0.6.8",
+	"validator": "6.0.0"
   },
   "devDependencies": {
 	"babel-core": "6.17.0",
@@ -60,6 +65,7 @@
 	"jshint": "2.9.3",
 	"jshint-stylish": "2.2.1",
 	"json-loader": "0.5.4",
+	"null-loader": "0.1.1",
 	"run-sequence": "1.2.2",
 	"vinyl-source-stream": "1.1.0",
 	"webpack": "1.13.2",
