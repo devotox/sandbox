@@ -8,21 +8,24 @@ const router = express.Router();
 
 router.post('/', (req, res) => {
 	if(!req.body.url) {
-		return res.send('');
+		return res.status(500).send('Need to send a url in the request body');
 	}
-	
+
 	request({
 		url: req.body.url,
-		data: req.body.data || {},
-		params: req.body.params || {},
-		headers: req.body.headers || {},
-		method: req.body.method || 'GET'
+		method: req.body.method,
+		data: req.body.data || null,
+		params: req.body.params || null,
+		headers: req.body.headers || null
 	})
 	.then((response) => {
-		res.send(response.data);
+		let status = (response && response.status) || 200;
+		res.status(status).send(response.data);
 	})
-	.catch(() => {
-		res.send('');
+	.catch((error) => {
+		let data = (error && error.response && error.response.data) || error;
+		let status = (error && error.response && error.response.status) || 500;
+		res.status(status).send(data);
 	});
 });
 
