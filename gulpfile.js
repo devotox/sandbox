@@ -44,7 +44,7 @@ gulp.task('js', () => {
 		.pipe(browserSync.stream());
 });
 
-gulp.task('hbs', function() {
+gulp.task('hbs', () => {
 	return gulp.src(`${source}/templates/**/*.hbs`)
 		.pipe($.plumber())
 		.pipe($.handlebars({
@@ -70,7 +70,7 @@ gulp.task('vendor', () => {
 });
 
 gulp.task('html', () => {
-	return gulp.src(`${source}/index.html`)
+	return gulp.src(`${source}/*.html`)
 		.pipe($.plumber())
 		.pipe(gulp.dest(`${destination}`))
 		.pipe(browserSync.stream());
@@ -122,7 +122,7 @@ gulp.task('start', ['compile', 'start-api']);
 
 gulp.task('compile', ['js', 'hbs', 'css', 'html', 'vendor']);
 
-gulp.task('serve', function(done) {
+gulp.task('serve', (done) => {
 	return runSequence('clean', 'compile', 'browserSync', 'watch', () => {
 		done();
 	});
