@@ -1,8 +1,6 @@
 /* jshint node: true, browser: false */
 /* globals require */
 
-'use strict';
-
 const source = 'app',
 	destination = 'dist';
 
@@ -44,22 +42,6 @@ gulp.task('js', () => {
 		.pipe(browserSync.stream());
 });
 
-gulp.task('hbs', () => {
-	return gulp.src(`${source}/templates/**/*.hbs`)
-		.pipe($.plumber())
-		.pipe($.handlebars({
-			handlebars: require('handlebars')
-		}))
-		.pipe($.wrap('Handlebars.template(<%= contents %>)'))
-		.pipe($.declare({
-			namespace: 'Templates',
-			noRedeclare: true
-		}))
-		.pipe($.concat('tpls.js'))
-		.pipe(gulp.dest(`${destination}/js`))
-		.pipe(browserSync.stream());
-});
-
 gulp.task('vendor', () => {
 	return gulp.src(`${source}/vendor/**/*`)
 		.pipe($.plumber())
@@ -95,12 +77,9 @@ gulp.task('watch', () =>  {
 	gulp.watch(`${source}/**/*.html`, ['html-watch']);
 	gulp.watch(`${source}/styles/**/*.scss`, ['css-watch']);
 	gulp.watch(`${source}/vendor/**/*.js`, ['vendor-watch']);
-	gulp.watch(`${source}/templates/**/*.hbs`, ['hbs-watch']);
 });
 
 gulp.task('js-watch', ['js'], browserSync.reload);
-
-gulp.task('hbs-watch', ['hbs'], browserSync.reload);
 
 gulp.task('css-watch', ['css'], browserSync.reload);
 
@@ -120,7 +99,7 @@ gulp.task('default', ['serve']);
 
 gulp.task('start', ['compile', 'start-api']);
 
-gulp.task('compile', ['js', 'hbs', 'css', 'html', 'vendor']);
+gulp.task('compile', ['js', 'css', 'html', 'vendor']);
 
 gulp.task('serve', (done) => {
 	return runSequence('clean', 'compile', 'browserSync', 'watch', () => {

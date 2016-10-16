@@ -1,5 +1,3 @@
-'use strict';
-
 const package_json = require('../../package');
 
 const express = require('express');

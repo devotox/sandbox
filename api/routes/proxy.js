@@ -1,5 +1,3 @@
-'use strict';
-
 const request = require('axios');
 
 const express = require('express');

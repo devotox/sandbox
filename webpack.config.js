@@ -1,20 +1,37 @@
 module.exports = (source) => {
-	'use strict';
-
 	return {
 		module: {
 			entry: [`${source}/js/index.js`],
 			preLoaders: [{
-				test: /\.json$/,
-				loader: 'json-loader',
+				test: /\.jsx?$/,
+				exclude: /(node_modules|bower_components|vendor|dist)/,
+				loader: 'jshint-loader'
 			}],
 			loaders: [{
 				test: /\.md$/,
 				loader: 'null'
 			}, {
-				test: /.jsx?$/,
+				test: /\.json$/,
+				loader: 'json-loader'
+			}, {
+				test: /node_modules/,
+				loader: 'ify-loader'
+			// }, {
+			// 	test: /node_modules/,
+			// 	loader: 'transform/cacheable?brfs'
+			}, {
+				test: /\.hbs?$/,
+				loader: 'handlebars-template-loader',
+				exclude: /(node_modules|bower_components|vendor|dist)/,
+				query: {
+					helperDirs: [
+						`${source}/js/helpers/handlebars`,
+					]
+				}
+			}, {
+				test: /\.jsx?$/,
 				loader: 'babel-loader',
-				exclude: /node_modules/,
+				exclude: /(node_modules|bower_components|vendor|dist)/,
 				query: {
 					presets: ['es2015'],
 					plugins: ['transform-runtime']
@@ -28,6 +45,10 @@ module.exports = (source) => {
 			fs: 'empty',
 			net: 'empty',
 			tls: 'empty'
+		},
+		jshint: {
+			emitErrors: true,
+			failOnHint: false
 		}
 	};
 };

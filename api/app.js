@@ -1,7 +1,3 @@
-#!/usr/bin/node
-
-'use strict';
-
 // Configure PM2 Keymetrics ( must come before requiring any http modules )
 let pmx 					= require('pmx').init({ http : true });
 

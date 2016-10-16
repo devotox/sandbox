@@ -1,7 +1,3 @@
-#!/usr/bin/node
-
-'use strict';
-
 let path = require('path'),
 	forever = require('forever-monitor'),
 	__file = path.join(__dirname, 'app.js');
