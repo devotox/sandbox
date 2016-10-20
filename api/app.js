@@ -70,6 +70,7 @@ global.version = configuration.version;
 // create the express framework
 let app = express();
 
+// Serve static files
 app.set('view engine', 'ejs');
 app.set('port', configuration.port);
 app.set('views', path.join(__dirname, '/views'));
@@ -81,16 +82,16 @@ app.use(methodOverride('X-Method-Override', ['POST', 'PUT']));      // IBM
 app.use(methodOverride('X-HTTP-Method-Override', ['POST', 'PUT'])); // Google / GData / Salesforce
 
 // Force SSL
-app.use(cors());
-app.use(forceSSL);
-app.set('forceSSLOptions', {
-	httpsPort: configuration.secure_port
-});
+// app.use(forceSSL);
+// app.set('forceSSLOptions', {
+// 	httpsPort: configuration.secure_port
+// });
 
 // Protect against known vulnerabilities
 app.use(helmet());
 app.use(helmet.noCache());
 
+app.use(cors());
 app.use(compression());
 app.use(express.query());
 app.use(bodyParser.json({ limit: '50mb' }));
