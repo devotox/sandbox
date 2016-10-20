@@ -2,7 +2,7 @@
 const default_route = require('./routes/default');
 const proxy = require('./routes/proxy');
 
-module.exports = (app) => {
-	app.use('/', default_route);
-	app.use('/proxy', proxy);
+module.exports = (app, prefix = '/api') => {
+	app.use(`${prefix}/`, default_route);
+	app.use(`${prefix}/proxy`, proxy);
 };

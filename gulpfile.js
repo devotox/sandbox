@@ -92,14 +92,18 @@ gulp.task('api-watch', $.shell.task([
 ]));
 
 gulp.task('start-api', $.shell.task([
-	'node server.js'
+	`cd api && node server.js`
 ]));
 
 gulp.task('default', ['serve']);
 
-gulp.task('start', ['compile', 'start-api']);
-
 gulp.task('compile', ['js', 'css', 'html', 'vendor']);
+
+gulp.task('start', (done) => {
+	return runSequence('clean', 'compile', 'start-api', () => {
+		done();
+	});
+});
 
 gulp.task('serve', (done) => {
 	return runSequence('clean', 'compile', 'browserSync', 'watch', () => {

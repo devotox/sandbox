@@ -22,18 +22,19 @@ require('pg-spice').patch(require('pg'));
 Promise.config({
 	monitoring: false,
 	cancellation: true,
-	longStackTraces: true,
-	warnings: {
-		wForgottenReturn: false
-	}
+	longStackTraces: true
 });
 
 // setup the server configuration based on environment / command-line options
+let port = process.env.NODE_PORT || process.env.PORT || 8080;
+let host = process.env.NODE_HOST || process.env.HOST || 'localhost';
+let secure_port = process.env.NODE_SECURE_PORT || process.env.SECURE_PORT || 3000;
+
 let configuration = {
+	host: host,
+	port: port,
 	version: '1',
-	host: 'localhost',
-	insecure_port: 8081,
-	node_port: parseInt( process.env.NODE_PORT ) || 3000
+	secure_port: secure_port
 };
 
 let certificates = {
@@ -69,6 +70,11 @@ global.version = configuration.version;
 // create the express framework
 let app = express();
 
+app.set('view engine', 'ejs');
+app.set('port', configuration.port);
+app.set('views', path.join(__dirname, '/views'));
+app.use(express.static(path.join(__dirname, '../dist')));
+
 // override with different headers; last one takes precedence
 app.use(methodOverride('X-HTTP-Method', ['POST', 'PUT']));          // Microsoft
 app.use(methodOverride('X-Method-Override', ['POST', 'PUT']));      // IBM
@@ -78,7 +84,7 @@ app.use(methodOverride('X-HTTP-Method-Override', ['POST', 'PUT'])); // Google / 
 app.use(cors());
 app.use(forceSSL);
 app.set('forceSSLOptions', {
-	httpsPort: configuration.node_port
+	httpsPort: configuration.secure_port
 });
 
 // Protect against known vulnerabilities
@@ -92,13 +98,16 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 
 app.use(pmx.expressErrorHandler());
 
-// start the app on port 3000!
+// start the app!
 require('./router')(app); // Set all routes in router.js file
 module.exports.server = https.createServer(credentials, app);
-http.createServer(app).listen(configuration.insecure_port);
-module.exports.server.listen( configuration.node_port );
+module.exports.server.listen(configuration.secure_port);
+http.createServer(app).listen(configuration.port);
 
-console.info(`API LISTENING ON SECURE PORT ${configuration.node_port}`);
+console.info(`API LISTENING ON...`);
+console.info(`HOST: ${configuration.host}`);
+console.info(`PORT: ${configuration.port}`);
+console.info(`SECURE PORT: ${configuration.secure_port}`);
 
 // handle errors
 process.on('uncaughtException', (error) => {

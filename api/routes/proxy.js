@@ -4,6 +4,10 @@ const express = require('express');
 
 const router = express.Router();
 
+router.get('/', (req, res) => {
+	res.send('Proxy Needs POST');
+});
+
 router.post('/', (req, res) => {
 	if(!req.body.url) {
 		return res.status(500).send('Need to send a url in the request body');
