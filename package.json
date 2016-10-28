@@ -62,7 +62,7 @@
     "pg-spice": "2.0.1",
     "pmx": "0.6.8",
     "request": "2.76.0",
-    "sidekick": "^1.12.0",
+    "sidekick": "1.12.0",
     "textversionjs": "1.0.1",
     "validator": "6.1.0"
   },
