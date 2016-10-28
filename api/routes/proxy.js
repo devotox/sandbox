@@ -1,34 +1,33 @@
-const request = require('axios');
+const request = require('request');
 
 const express = require('express');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-	res.send('Proxy Needs POST');
-});
+const _ = require('lodash');
 
-router.post('/', (req, res) => {
-	if(!req.body.url) {
+router.all('/', (req, res) => {
+	let data = Object.assign({}, req.body, req.query);
+
+	if(!data.url) {
 		return res.status(500).send('Need to send a url in the request body');
 	}
 
-	request({
-		url: req.body.url,
-		method: req.body.method,
-		data: req.body.data || null,
-		params: req.body.params || null,
-		headers: req.body.headers || null
-	})
-	.then((response) => {
-		let status = (response && response.status) || 200;
-		res.status(status).send(response.data);
-	})
-	.catch((error) => {
-		let data = (error && error.response && error.response.data) || error;
-		let status = (error && error.response && error.response.status) || 500;
-		res.status(status).send(data);
-	});
+	let config = Object.assign({
+		url: data.url,
+		aws: data.aws,
+		auth: data.auth,
+		form: data.form,
+		oauth: data.oauth,
+		method: data.method,
+		formData: data.formData,
+		body: data.data || null,
+		qs: data.params || null,
+		headers: data.headers || null,
+		json: _.isObject(data.data) ? true : false
+	}, data.config);
+
+	request(config).pipe(res);
 });
 
 module.exports = router;
