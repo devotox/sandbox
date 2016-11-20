@@ -16,6 +16,7 @@
     "release-patch": "npm version patch",
     "release-minor": "npm version minor",
     "release-major": "npm version major",
+    "preversion": "sidekick run && npm test",
     "postversion": "git push && git push --tags"
   },
   "keywords": [
@@ -54,7 +55,7 @@
     "jquery": "3.1.1",
     "lodash": "4.16.4",
     "method-override": "2.3.6",
-    "model-base": "1.0.9",
+    "model-base": "1.1.2",
     "moment": "2.15.2",
     "moment-timezone": "0.5.7",
     "newrelic": "1.32.0",

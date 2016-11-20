@@ -13,7 +13,7 @@ let express					= require('express');
 let compression				= require('compression');
 let bodyParser				= require('body-parser');
 let methodOverride			= require('method-override');
-let forceSSL 				= require('express-force-ssl');
+//let forceSSL 				= require('express-force-ssl');
 
 // Configure PG (allow named parameters in stored procedures)
 require('pg-spice').patch(require('pg'));
