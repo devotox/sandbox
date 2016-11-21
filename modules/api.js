@@ -6,17 +6,15 @@ const methods = [
 	'delete', 'head', 'options'
 ];
 
-const config = require('./config');
+const request = (method, api, { params, data, headers, config }) => {
+	const baseURL = config.api && config.api.base || '';
+	const apiPrefix = config.api && config.api.prefix || '';
 
-const baseURL = config.api.base;
-const apiPrefix = config.api.prefix;
-
-const request = (method, api, params, data, headers) => {
 	let url = `${baseURL}/${apiPrefix}/${api}`;
-	let config = { method, url, params, data, headers };
+	let request_config = { method, url, params, data, headers };
 
 	return new Promise((resolve, reject) => {
-		axios(config).then((response) => {
+		axios(request_config).then((response) => {
 			resolve(response.data);
 		}).catch((response) => {
 			reject(response.data);
@@ -31,3 +29,4 @@ methods.forEach((method) => {
 		return request(method, ...arguments);
 	};
 });
+
