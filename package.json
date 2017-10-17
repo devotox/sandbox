@@ -89,7 +89,7 @@
     "gulp-shell": "0.6.3",
     "gulp-sourcemaps": "2.6.1",
     "gulp-wrap": "0.13.0",
-    "handlebars": "4.0.10",
+    "handlebars": "4.0.11",
     "handlebars-template-loader": "0.8.0",
     "ify-loader": "1.1.0",
     "jshint": "2.9.5",
