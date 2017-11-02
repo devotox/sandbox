@@ -57,7 +57,7 @@
     "method-override": "2.3.10",
     "model-base": "1.2.3",
     "moment": "2.18.1",
-    "moment-timezone": "0.5.13",
+    "moment-timezone": "0.5.14",
     "pg": "7.3.0",
     "pg-spice": "2.0.1",
     "request": "2.83.0",
