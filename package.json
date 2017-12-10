@@ -63,7 +63,7 @@
     "request": "2.83.0",
     "sidekick": "1.12.2",
     "textversionjs": "1.0.2",
-    "validator": "9.1.2"
+    "validator": "9.2.0"
   },
   "devDependencies": {
     "babel-core": "6.26.0",
