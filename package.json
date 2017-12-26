@@ -46,7 +46,7 @@
     "cheerio": "0.22.0",
     "compression": "1.7.1",
     "cors": "2.8.4",
-    "d3": "4.12.0",
+    "d3": "4.12.2",
     "express": "4.16.1",
     "express-force-ssl": "0.3.2",
     "express-request-proxy": "2.0.0",
